@@ -65,7 +65,9 @@ P.S. Здесь есть несколько вариантов решения з
 
 // Возьмите свой код из предыдущей практики
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => { //callback - функция
+    //addEventListener - обработчик событий
+    //DOMContentLoaded - когда дом-структура будет загружена, сработает код
     const movieDB = {
         movies: [
             "Логан",
@@ -85,28 +87,31 @@ document.addEventListener('DOMContentLoaded', () => {
         checkbox = addForm.querySelector('[type="checkbox"]');
 
     addForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+        //submit - отслеживаем отправку формы
+        //event - объект события
+        event.preventDefault(); //отмена стандартного поведения браузера
+        //при нажатии кнопки "отправить" страница не будет переагружаться
 
         let newFilm = addInput.value;
-        const favorite = checkbox.checked;
+        const favorite = checkbox.checked; //если стоит галочка в поле "Сделать любимым"
 
-        if (newFilm) {
+        if (newFilm) { //если непустая строка
 
             if (newFilm.length > 21) {
-                newFilm = `${newFilm.substring(0, 22)}...`;
+                newFilm = `${newFilm.substring(0, 22)}...`; //обрезаем строку
             }
 
             if (favorite) {
                 console.log("Добавляем любимый фильм");
             }
 
-            movieDB.movies.push(newFilm);
-            sortArr(movieDB.movies);
+            movieDB.movies.push(newFilm); //добавляем фильм в массив
+            sortArr(movieDB.movies); //сортируем
 
-            createMovieList(movieDB.movies, movieList);
+            createMovieList(movieDB.movies, movieList); //создаём новый список
         }
 
-        addForm.reset();
+        addForm.reset(); //сброс формы
 
     });
     
@@ -128,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     makeChanges();
 
-    const sortArr = (arr) => {
+    const sortArr = (arr) => { //arr - массив
         arr.sort;
     };
 
@@ -144,12 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
             parent.innerHTML += `<li class="promo__interactive-item">${i + 1} ${film}<div class="delete"></div></li>`
         });
 
-        document.querySelectorAll('.delete').forEach((btn, i) => {
+        //удаляем фильм из списка
+        document.querySelectorAll('.delete').forEach((btn, i) => { //одно и то же событие на все селекторы с классом .delete, btn - каждая кнопка, i - номер элемента
             btn.addEventListener('click', () => {
                 btn.parentElement.remove();
-                movieDB.movies.splice(i, 1);
+                movieDB.movies.splice(i, 1); //удаляем элемент из массива
 
-                createMovieList(films, parent);
+                createMovieList(films, parent); //рекурсия для перестроения после удаления
 
             })
         })

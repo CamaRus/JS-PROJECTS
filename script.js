@@ -187,7 +187,7 @@ const personalMovieDB = {
     actors: {},
     genres: [],
     privat: false,
-    start: function () {
+    start : function () { //start - метод
         personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?');
     
         while (personalMovieDB.count =='' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
@@ -196,7 +196,7 @@ const personalMovieDB = {
     },
 
     rememberMyFilms: function() {
-        for (let i=0; i<2; i++) {
+        for (let i=0; i<2; i++) { //задаём вопросы два раза
             const a = prompt('Один из последних просмотренных фильмов?', ''),
                 b = prompt('На сколько оцените его?', '');
             if (a != null && b != null && a != '' && b != '' && a.length < 50){
@@ -204,7 +204,7 @@ const personalMovieDB = {
                 console.log('done');
             } else {
                 console.log('error');
-                i--;
+                i--; //повторяем вопросы
             }  
         }
     },
@@ -241,11 +241,14 @@ const personalMovieDB = {
 
             if(genre === '' || genre == null){
                 console.log('Вы ввели некорректные данные или не ввели их вовсе');
+                i--;
             }else{
                 personalMovieDB.genres[i-1] = genre;
             }
         }
         personalMovieDB.genres.forEach((item, i) => {
+            //item - каждый элемент в массиве, который мы перебираем
+            //i - номер по порядку
             console.log(`Любимый жанр ${i+1} - это ${item}`);
         });
     }
